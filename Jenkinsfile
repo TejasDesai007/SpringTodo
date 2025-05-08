@@ -38,12 +38,17 @@ pipeline {
             }
         }
 
-        stage('Deploy (Optional)') {
+        stage('Deploy') {
             when {
-                expression { false } // Set to true if deploying
+                expression { true } // Change to a condition if needed
             }
             steps {
-                echo "Deploying to Kubernetes or another environment"
+                sh '''
+                    docker pull ${DOCKER_IMAGE}
+                    docker stop springboot-app || true
+                    docker rm springboot-app || true
+                    docker run -d -p 8080:8080 --name springboot-app ${DOCKER_IMAGE}
+                '''
             }
         }
     }
