@@ -47,7 +47,7 @@ pipeline {
                     docker pull ${DOCKER_IMAGE}
                     docker stop springboot-app || true
                     docker rm springboot-app || true
-                    docker run -d -p 8080:8080 --name springboot-app ${DOCKER_IMAGE}
+                    docker run -d -p 8081:8080 --name springboot-app ${DOCKER_IMAGE}
                 '''
             }
         }
